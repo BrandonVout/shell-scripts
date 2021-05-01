@@ -18,6 +18,8 @@ GITIGNORE_LANG="$LOCAL_IGNORE_PATH/gitignore.lang.txt"	# ignore language files/f
 GITIGNORE_BUILD="$LOCAL_IGNORE_PATH/gitignore.build.txt"	# ignore build files/folders (ninja, cmake)
 GITIGNORE_VCS="$LOCAL_IGNORE_PATH/gitignore.vcs.txt"		# ignore vcs files/folders (git, mercurial, cvs, svn, bazaar)
 
+#### .gitignore
+
 # copy local ignore to current directory
 alias cp-gitignore='cat $GITIGNORE_OS $GITIGNORE_ED > $DEST_GIT'	# default .gitignore
 alias cp-gitignore-os='cp $GITIGNORE_OS $DEST_GIT'
@@ -77,3 +79,65 @@ alias cat-gi-language='cat $GITIGNORE_LANG >> $DEST_GIT'
 alias cat-gi-lang='cat $GITIGNORE_LANG >> $DEST_GIT'
 alias cat-gi-build='cat $GITIGNORE_BUILD >> $DEST_GIT'
 alias cat-gi-vcs='cat $GITIGNORE_VCS >> $DEST_GIT'
+
+#### .hgignore
+
+# copy local ignore to current directory
+alias cp-hgignore='cat $GITIGNORE_OS $GITIGNORE_ED > $DEST_HG'	# default .gitignore
+alias cp-hgignore-os='cp $GITIGNORE_OS $DEST_HG'
+alias cp-hgignore-editor='cp $GITIGNORE_ED $DEST_HG'
+alias cp-hgignore-ed='cp $GITIGNORE_ED $DEST_HG'
+alias cp-hgignore-jetbrains='cp $GITIGNORE_JB $DEST_HG'
+alias cp-hgignore-jb='cp $GITIGNORE_JB $DEST_HG'
+alias cp-hgignore-visualstudio='cp $GITIGNORE_VS $DEST_HG'
+alias cp-hgignore-vs='cp $GITIGNORE_VS $DEST_HG'
+alias cp-hgignore-ide='cp $GITIGNORE_IDE $DEST_HG'
+alias cp-hgignore-qt='cp $GITIGNORE_QT $DEST_HG'
+alias cp-hgignore-language='cp $GITIGNORE_LANG $DEST_HG'
+alias cp-hgignore-lang='cp $GITIGNORE_LANG $DEST_HG'
+alias cp-hgignore-build='cp $GITIGNORE_BUILD $DEST_HG'
+alias cp-hgignore-vcs='cp $GITIGNORE_VCS $DEST_HG'
+alias cp-hi='cat $GITIGNORE_OS $GITIGNORE_ED > $DEST_HG'	# default .gitignore
+alias cp-hi-os='cp $GITIGNORE_OS $DEST_HG'
+alias cp-hi-editor='cp $GITIGNORE_ED $DEST_HG'
+alias cp-hi-ed='cp $GITIGNORE_ED $DEST_HG'
+alias cp-hi-jetbrains='cp $GITIGNORE_JB $DEST_HG'
+alias cp-hi-jb='cp $GITIGNORE_JB $DEST_HG'
+alias cp-hi-visualstudio='cp $GITIGNORE_VS $DEST_HG'
+alias cp-hi-vs='cp $GITIGNORE_VS $DEST_HG'
+alias cp-hi-ide='cp $GITIGNORE_IDE $DEST_HG'
+alias cp-hi-qt='cp $GITIGNORE_QT $DEST_HG'
+alias cp-hi-language='cp $GITIGNORE_LANG $DEST_HG'
+alias cp-hi-lang='cp $GITIGNORE_LANG $DEST_HG'
+alias cp-hi-build='cp $GITIGNORE_BUILD $DEST_HG'
+alias cp-hi-vcs='cp $GITIGNORE_VCS $DEST_HG'
+
+# concatinate .gitignore to end of existing .gitignore
+alias cat-hgignore='cat $GITIGNORE_OS >> $DEST_HG && cat $GITIGNORE_ED >> $DEST_HG'	# default .gitignore
+alias cat-hgignore-os='cat $GITIGNORE_OS >> $DEST_HG'
+alias cat-hgignore-editor='cat $GITIGNORE_ED >> $DEST_HG'
+alias cat-hgignore-ed='cat $GITIGNORE_ED >> $DEST_HG'
+alias cat-hgignore-jetbrains='cat $GITIGNORE_JB >> $DEST_HG'
+alias cat-hgignore-jb='cat $GITIGNORE_JB >> $DEST_HG'
+alias cat-hgignore-visualstudio='cat $GITIGNORE_VS >> $DEST_HG'
+alias cat-hgignore-vs='cat $GITIGNORE_VS >> $DEST_HG'
+alias cat-hgignore-ide='cat $GITIGNORE_IDE >> $DEST_HG'
+alias cat-hgignore-qt='cat $GITIGNORE_QT >> $DEST_HG'
+alias cat-hgignore-language='cat $GITIGNORE_LANG >> $DEST_HG'
+alias cat-hgignore-lang='cat $GITIGNORE_LANG >> $DEST_HG'
+alias cat-hgignore-build='cat $GITIGNORE_BUILD >> $DEST_HG'
+alias cat-hgignore-vcs='cat $GITIGNORE_VCS >> $DEST_HG'
+alias cat-hi='cat $GITIGNORE_OS >> $DEST_HG && cat $GITIGNORE_ED >> $DEST_HG'	# default .gitignore
+alias cat-hi-os='cat $GITIGNORE_OS >> $DEST_HG'
+alias cat-hi-editor='cat $GITIGNORE_ED >> $DEST_HG'
+alias cat-hi-ed='cat $GITIGNORE_ED >> $DEST_HG'
+alias cat-hi-jetbrains='cat $GITIGNORE_JB >> $DEST_HG'
+alias cat-hi-jb='cat $GITIGNORE_JB >> $DEST_HG'
+alias cat-hi-visualstudio='cat $GITIGNORE_VS >> $DEST_HG'
+alias cat-hi-vs='cat $GITIGNORE_VS >> $DEST_HG'
+alias cat-hi-ide='cat $GITIGNORE_IDE >> $DEST_HG'
+alias cat-hi-qt='cat $GITIGNORE_QT >> $DEST_HG'
+alias cat-hi-language='cat $GITIGNORE_LANG >> $DEST_HG'
+alias cat-hi-lang='cat $GITIGNORE_LANG >> $DEST_HG'
+alias cat-hi-build='cat $GITIGNORE_BUILD >> $DEST_HG'
+alias cat-hi-vcs='cat $GITIGNORE_VCS >> $DEST_HG'
