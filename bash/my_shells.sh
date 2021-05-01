@@ -14,6 +14,8 @@ source "manuskript.sh"
 source "etherpad.sh"
 source "toggle_hidden.sh"
 source "add_license.sh"
+source "add_readme.sh"
+source "add_ignore.sh"
 
 # source scripts made by others
 # source $HOME/.oh-my-git/prompt.sh
