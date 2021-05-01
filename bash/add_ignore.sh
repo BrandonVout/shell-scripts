@@ -14,7 +14,7 @@ GITIGNORE_JB="$LOCAL_IGNORE_PATH/gitignore.jb.txt"		# ignore JetBrains files/fol
 GITIGNORE_VS="$LOCAL_IGNORE_PATH/gitignore.vs.txt"		# ignore Visual Studio files/folders (not Code)
 GITIGNORE_IDE="$LOCAL_IGNORE_PATH/gitignore.ide.txt"	# ignore files/folders from other IDEs (kdevelop4, kdiff3, monodevelop, netbeans, eclipse, xcode, xcodeinjection, xamarinstudio, komodoedit)
 GITIGNORE_QT="$LOCAL_IGNORE_PATH/gitignore.qt.txt"		# ignore Qt files/folders (Qt & Qt Creator)
-GITIGNORE_LANG="$LOCAL_IGNORE_PATH/gitignore.lang.txt"	# ignore language files/folders (c++, python, java, rust, go, lua, kotlin, zsh, c#, nodejs)
+GITIGNORE_LANG="$LOCAL_IGNORE_PATH/gitignore.lang.txt"	# ignore language files/folders (c++, python, java, rust, go, lua, kotlin, zsh, c#, nodejs, perl)
 GITIGNORE_BUILD="$LOCAL_IGNORE_PATH/gitignore.build.txt"	# ignore build files/folders (ninja, cmake)
 GITIGNORE_VCS="$LOCAL_IGNORE_PATH/gitignore.vcs.txt"		# ignore vcs files/folders (git, mercurial, cvs, svn, bazaar)
 
