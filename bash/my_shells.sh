@@ -17,6 +17,7 @@ source "add_license.sh"
 source "add_readme.sh"
 source "add_ignore.sh"
 source "read_write.sh"
+source "linting.sh"
 
 # source scripts made by others
 OTHER_SHELLS="$HOME/Shells"
