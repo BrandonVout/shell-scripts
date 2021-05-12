@@ -17,7 +17,7 @@ source "read_write.sh"
 source "linting.sh"
 source "git_shortcuts.sh"
 
-TEMPLATES_PATH='$HOME/Development/Templates'
+TEMPLATES_PATH="$HOME/Development/Templates"
 source "$TEMPLATES_PATH/licenses/add_license.sh"
 source "$TEMPLATES_PATH/readme-templates/add_readme.sh"
 source "$TEMPLATES_PATH/ignore-snippets/add_ignore.sh"
