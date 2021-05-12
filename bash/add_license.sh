@@ -6,7 +6,7 @@
 DEST_LICENSE="./LICENSE"
 
 # local license locations
-LOCAL_LICENSE_PATH="$HOME/.licenses"
+LOCAL_LICENSE_PATH="$HOME/Development/Templates/licenses"
 AGPL3="$LOCAL_LICENSE_PATH/agpl3.txt"
 APACHE2="$LOCAL_LICENSE_PATH/apache2.txt"
 BSD2="$LOCAL_LICENSE_PATH/bsd2.txt"	# simplified

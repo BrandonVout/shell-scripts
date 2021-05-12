@@ -7,7 +7,7 @@ DEST_GIT="./.gitignore"
 DEST_HG="./.hgignore"
 
 # local ignore locations
-LOCAL_IGNORE_PATH="$HOME/.ignores"
+LOCAL_IGNORE_PATH="$HOME/Development/Templates/ignore-templates"
 GITIGNORE_OS="$LOCAL_IGNORE_PATH/gitignore.os.txt"		# ignore OS files/folders (macOS, linux, windows)
 GITIGNORE_ED="$LOCAL_IGNORE_PATH/gitignore.ed.txt"		# ignore editor files/folders (sublime text, vscode, visual studio code, vim, emacs, kate)
 GITIGNORE_JB="$LOCAL_IGNORE_PATH/gitignore.jb.txt"		# ignore JetBrains files/folders (all ides)

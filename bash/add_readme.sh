@@ -6,7 +6,7 @@
 DEST_README="./README"
 
 # local readme locations
-LOCAL_README_PATH="$HOME/.readmes"
+LOCAL_README_PATH="$HOME/Development/Templates/readme-templates"
 README="$LOCAL_README_PATH/readme.generic.md"
 README_GAME="$LOCAL_README_PATH/readme.game.md"
 
