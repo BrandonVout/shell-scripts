@@ -29,6 +29,7 @@ alias lint-mp3='mp3check'				# mp3
 alias lint-perl='perltidy'				# perl
 alias lint-prose='write-good'			# prose
 alias lint-prose-pl='proselint'			# prose
+alias lint-prose-r='redpen'				# prose
 alias lint-prose-v='vale'				# prose
 alias lint-prose-wg='write-good'		# prose
 alias lint-py='pylint'					# python
@@ -108,6 +109,9 @@ alias prose='proselint'					# file
 # pylint
 alias pyl='pylint'
 
+# redpen
+alias rp='redpen'						# file1 [file2]...
+
 # revive
 alias rvi='revive'
 
@@ -139,7 +143,7 @@ alias swl='swiftlint'
 alias td='tidy'							# file
 
 # vale
-alias vl='vale'							# file
+alias vl='vale'							# file1 [file2] [dir]...
 
 # vint
 alias vt='vint'							# file
