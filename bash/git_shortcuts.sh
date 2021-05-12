@@ -47,6 +47,14 @@ alias gaa='git add .'
 alias gc='git commit -S -m'		# "MESSAGE"
 alias gci='git commit -S -m "initial commit"'
 alias gp='git push'
+function gpm() {
+	git checkout main
+	git push -u origin main
+}
+function gpd() {
+	git checkout dev
+	git push -u origin dev
+}
 alias gf='git fetch --all'
 alias gpu='git pull'
 
