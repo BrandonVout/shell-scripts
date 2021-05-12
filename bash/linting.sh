@@ -11,12 +11,14 @@ alias lint-go-g='golangci-lint run'		# golang
 alias lint-go-r='revive'				# golang
 alias lint-go-s='staticcheck'			# golang
 alias lint-hs='hlint'					# haskell
+alias lint-java='checkstyle'			# java
 alias lint-js='eslint'					# javascript
 alias lint-json='jsonlint'				# .json file
 alias lint-kotlin='ktlint'				# kotlin
 alias lint-kt='ktlint'					# kotlin
 alias lint-link='linklint'				# html links
 alias lint-md='markdownlint-cli'		# markdown
+alias lint-perl='perltidy'				# perl
 alias lint-prose='write-good'			# prose
 alias lint-prose-pl='proselint'			# prose
 alias lint-prose-v='vale'				# prose
@@ -29,6 +31,9 @@ alias lint-shell='shellcheck'			# shell script
 alias lint-swift='swiftlint'			# swift
 alias lint-vim='vint'					# vim script
 alias lint-yaml='yamllint'				# yaml
+
+# checkstyle
+alias cs='checkstyle'					# file1 [file2]...
 
 # cpplint
 alias cppl='cpplint'					# file1 [file2]...
@@ -66,6 +71,9 @@ alias linkl='linklint'
 
 # markdownlint-cli
 alias mdl='markdownlint-cli'			# file1 [file2] [dir]...
+
+# perltidy
+alias pt='perltidy'						# file1 [file2]... OR file1 -o outfile
 
 # proselint
 alias prose='proselint'					# file
