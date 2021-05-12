@@ -84,6 +84,13 @@ function gr() {
 	fi
 }
 
+# remove all remotes
+function grr() {
+	git remote rm origin
+	git remote rm github
+	git remote rm gitlab
+}
+
 # rename master to main
 function grn() {
 	git branch -m master main		# change local
