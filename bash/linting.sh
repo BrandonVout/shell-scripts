@@ -41,6 +41,8 @@ alias lint-shell-b='checkbashisms'		# shell script
 alias lint-shell-c='shellcheck'			# shell script
 alias lint-shell-f='shfmt'				# shell script
 alias lint-swift='swiftlint'			# swift
+alias lint-terraform='tflint'			# terraform
+alias lint-tf='tflint'					# terraform
 alias lint-vim='vint'					# vim script
 alias lint-yaml='yamllint'				# yaml
 
@@ -138,6 +140,9 @@ alias stch='style-check.rb'				# file
 
 # swiftlint
 alias swl='swiftlint'
+
+# tflint
+alias tfl='tflint'
 
 # tidy
 alias td='tidy'							# file
