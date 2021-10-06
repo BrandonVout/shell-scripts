@@ -11,6 +11,7 @@
 source "update_all.sh"
 source "checksum.sh"
 source "manuskript.sh"
+source "novelwriter.sh"
 source "etherpad.sh"
 source "toggle_hidden.sh"
 source "read_write.sh"
@@ -30,4 +31,5 @@ source "$OTHER_SHELLS/bash/rst_to_md.sh"
 # Goto my custom shell folder(s)
 alias myshells='cd $HOME/Development/Shell'	# local shells made by me
 alias lshells='cd $OTHER_SHELLS'			# local shells (not made by me)
-alias gshells='cd "$HOME/Google Drive/1_Sync_Unenc/MyProjects/Shell"'
+# alias gshells='cd "$HOME/Google Drive/1_Sync_Unenc/MyProjects/Shell"'
+alias gshells='cd "/Volumes/GoogleDrive/My Drive/1_Sync_Unenc/MyProjects/Shell"'
