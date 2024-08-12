@@ -5,14 +5,24 @@ root = true
 
 # all files
 [*]
-indent_style = tab
-# indent_size = 4
-# tab_width = 4
+[*]
+indent_style = space  # "tab" or "space"
+indent_size = 2 # uses value of tab_width when set to "tab"
+# tab_width = 2 # defaults to value of indent_size
+end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
-end_of_line = lf
 insert_final_newline = true
+
+# limited support among editors
+max_line_length = 120 # force hard line wrapping
 
 # markdown files
 [*.md]
 trim_trailing_whitespace = false
+
+# python
+[*.py]
+indent_style = space
+indent_size = 4
+# tab_width = 4
