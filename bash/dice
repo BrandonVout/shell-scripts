@@ -1,0 +1,243 @@
+#!/bin/bash
+
+################################################################################
+#                                Dice Roller                                   #
+#                                                                              #
+# Generates a given number of random values between 1 and a given maximum.     #
+# Roll Modifiers included.                                                     #
+#                                                                              #
+################################################################################
+################################################################################
+################################################################################
+#                                                                              #
+#  Copyright (C) 2022 Brandon Vout                                             #
+#  bvout@brandonvout.com                                                       #
+#                                                                              #
+#  This program is free software; you can redistribute it and/or modify        #
+#  it under the terms of the GNU Lesser General Public License as published    #
+#  by the Free Software Foundation; either version 3 of the License, or        #
+#  (at your option) any later version.                                         #
+#                                                                              #
+#  This program is distributed in the hope that it will be useful,             #
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of              #
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               #
+#  GNU General Public License for more details.                                #
+#                                                                              #
+#  You should have received a copy of the GNU Lesser General Public License    #
+#  along with this program; if not, write to the Free Software                 #
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA   #
+#                                                                              #
+################################################################################
+################################################################################
+################################################################################
+
+# default values
+DICE_MAX=20
+DICE_MIN=1
+DICE_ROLLS=1
+ROLL_MODIFIER=0
+ROLL_CRITICAL="false"
+
+# roll default or last rolled dice
+function roll_dice() {
+	# print roll message, describle what is being rolled
+	if [ $DICE_MAX -gt 1 ]; then
+		if [ $DICE_ROLLS -gt 1 ]; then
+			echo "Rolling" $DICE_ROLLS"d"$DICE_MAX"!"
+		else
+			echo "Rolling a d"$DICE_MAX"!"
+		fi
+	fi
+	if [ $ROLL_MODIFIER -gt 0 ]; then
+		echo "Rolls have a +"$ROLL_MODIFIER "modifier!"
+	elif [ $ROLL_MODIFIER -lt 0 ]; then
+		echo "Rolls have a -"${ROLL_MODIFIER#-} "modifier!" # remove the '-' from the value of ROLL_MODIFIER
+	fi
+	if [ $ROLL_CRITICAL = "true" ]; then
+		echo "Critical rolls enabled!"
+	fi
+
+	# print table headings
+	TABLE="Roll"
+	LINE=4 # number of characters in the table heading
+	if [ $ROLL_MODIFIER -ne 0 ]; then
+		TABLE="$TABLE\tMod\tTotal"
+		LINE=$((LINE + 17)) # add number of characters in the heading to line
+	fi
+	if [ $ROLL_CRITICAL = "true" ]; then
+		TABLE="$TABLE\tCritical"
+		LINE=$((LINE + 11)) # add number of characters in the heading to line
+		# account for the larger tab space between Roll and Critical than Total and Critical
+		if [ $ROLL_MODIFIER -eq 0 ]; then
+			LINE=$((LINE + 1))
+		fi
+	fi
+	echo
+	echo -e "$TABLE"
+	for ((x = 0; x < $LINE; x++)); do
+		printf %s -
+	done
+	echo
+
+	# roll dice
+	for ((i = 0; i < $DICE_ROLLS; i++)); do
+		ROLL=$(((RANDOM % $DICE_MAX) + $DICE_MIN))
+		OUTPUT=$ROLL
+		# modifiers
+		if [ $ROLL_MODIFIER -gt 0 ]; then
+			OUTPUT="$ROLL \t+$ROLL_MODIFIER \t= $((ROLL + ROLL_MODIFIER))"
+		elif [ $ROLL_MODIFIER -lt 0 ]; then
+			OUTPUT="$ROLL \t$ROLL_MODIFIER \t= $((ROLL + ROLL_MODIFIER))"
+		fi
+		# critical hit and fumbles when enabled
+		if [ $ROLL_CRITICAL = "true" ]; then
+			if [ $ROLL -eq $DICE_MAX ]; then
+				OUTPUT="$OUTPUT \tNatural $DICE_MAX"
+			elif [ $ROLL -eq $DICE_MIN ]; then
+				OUTPUT="$OUTPUT \tNatural $DICE_MIN"
+			fi
+		fi
+		# print roll result
+		echo -e $OUTPUT
+	done
+}
+
+# set modifier for next roll
+function set_modifier() {
+	if [ $# -gt 0 ]; then                                           # if there is a parameter
+		if ! [[ "$1" =~ ^[0-9]+$ ]] && ! [[ "$1" =~ ^-[0-9]+$ ]]; then # check if parameter is a number
+			# if ! [[ "$1" =~ ^-\?[0-9]+$ ]] randomly stopped working, had to improvisedy fix it
+			echo "Error: Invalid modifier, numbers only!"
+			exit
+		else
+			MODIFIER=$1
+			MODIFIER="${MODIFIER//[$'\t\r\n ']/}" # Remove all new line, tab characters from the string
+			ROLL_MODIFIER=$MODIFIER
+		fi
+	else # if there is no parameter
+		echo "No modifier set"
+	fi
+}
+
+# set max value of dice to roll
+function set_max() {
+	if [ $# -gt 0 ]; then              # if there is a parameter
+		if ! [[ "$1" =~ ^[0-9]+$ ]]; then # check if parameter is a positive number
+			echo "Error: Invalid dice type, positive numbers only!"
+			exit
+		else
+			NUM_MAX=$1
+			NUM_MAX="${NUM_MAX//[$'\t\r\n ']/}" # Remove all new line, tab characters from the string
+			if [ $NUM_MAX -lt 2 ]; then         # check if zero
+				echo "Error: Cannot roll a die with fewer than two faces!"
+				exit
+			elif [ $NUM_MAX -gt 1 ]; then
+				DICE_MAX=$NUM_MAX
+			else
+				echo "Error: Invalid dice type, out of range!" # should be impossible due to number check
+				exit
+			fi
+		fi
+	else # if there is no parameter
+		echo "No dice type set"
+	fi
+}
+
+# set number of dice to roll
+function set_rolls() {
+	if [ $# -gt 0 ]; then              # if there is a parameter
+		if ! [[ "$1" =~ ^[0-9]+$ ]]; then # check if parameter is a positive number
+			echo "Error: Invalid number of rolls, positive numbers only!"
+			exit
+		else
+			NUM_ROLLS=$1
+			NUM_ROLLS="${NUM_ROLLS//[$'\t\r\n ']/}" # Remove all new line, tab characters from the string
+			if [ $NUM_ROLLS -lt 1 ]; then           # check if zero
+				echo "Error: Cannot roll less than once!"
+				exit
+			elif [ $NUM_ROLLS -eq 1 ]; then
+				DICE_ROLLS=$NUM_ROLLS
+			elif [ $NUM_ROLLS -gt 1 ]; then
+				DICE_ROLLS=$NUM_ROLLS
+			else
+				echo "Error: Invalid number of rolls, out of range!" # should be impossible due to number check
+				exit
+			fi
+		fi
+	else # if there is no parameter
+		echo "No number of rolls set"
+	fi
+}
+
+Help() {
+	# Display Help
+	echo "Dice Roller"
+	echo "Generates a given number of random values between 1 and a given maximum."
+	echo
+	echo "Usage:"
+	echo "  dice [-h] [-c] [<dice_rolls>] [<dice_max>] [<roll_modifier>]"
+	echo "  dice [-c]"
+	echo "  dice [-c] <dice_rolls>"
+	echo "  dice [-c] <dice_rolls> <dice_max>"
+	echo "  dice [-c] <dice_rolls> <dice_max> <roll_modifier>"
+	echo "  dice -r <dice_rolls>"
+	echo "  dice -d <dice_max>"
+	echo "  dice -m <roll_modifier>"
+	echo "  dice -h"
+	echo
+	echo "Options:"
+	echo "  -h  Print this Help."
+	echo "  -c  Enable critical hits and fumbles [default: disabled]."
+	echo "  -r  Set number of rolls [default: 1]."
+	echo "  -d  Set maximum value of dice [default: 20]."
+	echo "  -m  Set roll modifier [default: 0]."
+}
+
+################################################################################
+# Main program                                                                 #
+################################################################################
+# Get the options
+while getopts ":hcrdm" option; do
+	case $option in
+	h) # display Help
+		Help
+		exit
+		;;
+	c) # enable critical rolls
+		ROLL_CRITICAL="true"
+		shift # drop the option from the parameter list
+		;;
+	r) # set number of rolls
+		set_rolls $2
+		shift # drop the option from the parameter list
+		shift # drop the argument from the parameter list
+		;;
+	d) # set max value of dice to roll
+		set_max $2
+		shift # drop the option from the parameter list
+		shift # drop the argument from the parameter list
+		;;
+	m) # set modifier for next roll
+		set_modifier $2
+		shift # drop the option from the parameter list
+		shift # drop the argument from the parameter list
+		;;
+	\?) # incorrect option
+		echo "Error: Invalid option"
+		exit
+		;;
+	esac
+done
+
+if [ "$#" -ge 1 ]; then
+	set_rolls $1 # if one option is given, set the number of dice to roll
+fi
+if [ "$#" -ge 2 ]; then
+	set_max $2 # if two options are given, set the type of dice to roll
+fi
+if [ "$#" -ge 3 ]; then
+	set_modifier $3 # if three options are given, set the modifier for the next roll
+fi
+if [ "$#" -ge 0 ]; then
+	roll_dice # if no options are given, roll the dice
+fi
