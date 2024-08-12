@@ -180,17 +180,11 @@ Help() {
   echo "  dice [-c] <dice_rolls>"
   echo "  dice [-c] <dice_rolls> <dice_max>"
   echo "  dice [-c] <dice_rolls> <dice_max> <roll_modifier>"
-  echo "  dice -r <dice_rolls>"
-  echo "  dice -d <dice_max>"
-  echo "  dice -m <roll_modifier>"
   echo "  dice -h"
   echo
   echo "Options:"
   echo "  -h  Print this Help."
   echo "  -c  Enable critical hits and fumbles [default: disabled]."
-  echo "  -r  Set number of rolls [default: 1]."
-  echo "  -d  Set maximum value of dice [default: 20]."
-  echo "  -m  Set roll modifier [default: 0]."
 }
 
 ################################################################################
@@ -206,21 +200,6 @@ while getopts ":hcrdm" option; do
   c) # enable critical rolls
     ROLL_CRITICAL="true"
     shift # drop the option from the parameter list
-    ;;
-  r) # set number of rolls
-    set_rolls $2
-    shift # drop the option from the parameter list
-    shift # drop the argument from the parameter list
-    ;;
-  d) # set max value of dice to roll
-    set_max $2
-    shift # drop the option from the parameter list
-    shift # drop the argument from the parameter list
-    ;;
-  m) # set modifier for next roll
-    set_modifier $2
-    shift # drop the option from the parameter list
-    shift # drop the argument from the parameter list
     ;;
   \?) # incorrect option
     echo "Error: Invalid option"
