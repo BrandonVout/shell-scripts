@@ -59,29 +59,24 @@ function roll_dice() {
 
   # compose header
   TABLE="Roll"
+  LINE_LENGTH=4
   if [ $ROLL_MODIFIER -ne 0 ]; then
     TABLE="$TABLE\tMod\tTotal"
+    # add number of characters between headers, -2 per tab character
+    LINE_LENGTH=$((${#TABLE} + 5))
   fi
   if [ $ROLL_CRITICAL = "true" ]; then
     TABLE="$TABLE\tCritical"
+    # add number of characters between headers, -2 per tab character
+    LINE_LENGTH=$((${#TABLE} + 2))
+    # account for whether "Critical" follows "Roll" or "Total"
+    if [ $ROLL_MODIFIER -ne 0 ]; then
+      LINE_LENGTH=$((LINE_LENGTH + 4))
+    fi
   fi
   # print table headers
   echo -e "\n$TABLE"
-
-  # print header line
-  LINE_LENGTH="${#TABLE}" # get length of headers (each tab equals 2 characters)
-  if [ $ROLL_MODIFIER -ne 0 ]; then
-    # add number of characters between "Roll" and "Mod" and "Total", -2 per tab
-    LINE_LENGTH=$((LINE_LENGTH + 5))
-  fi
-  if [ $ROLL_CRITICAL = "true" ]; then
-    # add number of characters before "Critical", -2 from the tab
-    LINE_LENGTH=$((LINE_LENGTH + 1))
-    # account for the larger gap between "Roll" and "Critical" than "Total" and "Critical"
-    if [ $ROLL_MODIFIER -eq 0 ]; then
-      LINE_LENGTH=$((LINE_LENGTH + 1))
-    fi
-  fi
+  # fill header line
   printf %"$LINE_LENGTH"s | tr " " "-"
   echo
 
