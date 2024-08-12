@@ -104,68 +104,68 @@ function roll_dice() {
 
 # set modifier for next roll
 function set_modifier() {
-  if [ $# -gt 0 ]; then                                            # if there is a parameter
-    if ! [[ "$1" =~ ^[0-9]+$ ]] && ! [[ "$1" =~ ^-[0-9]+$ ]]; then # check if parameter is a number
-      # if ! [[ "$1" =~ ^-\?[0-9]+$ ]] randomly stopped working, had to improvise to fix it
-      echo "Error: Invalid modifier, numbers only!"
-      exit
-    else
-      MODIFIER=$1
-      MODIFIER="${MODIFIER//[$'\t\r\n ']/}" # Remove all new line, tab characters from the string
-      ROLL_MODIFIER=$MODIFIER
-    fi
-  else # if there is no parameter
+  # if there is no parameter
+  if [ $# -eq 0 ]; then
     echo "No modifier set"
+    exit
   fi
+  if ! [[ "$1" =~ ^[0-9]+$ ]] && ! [[ "$1" =~ ^-[0-9]+$ ]]; then # check if parameter is a number
+    # if ! [[ "$1" =~ ^-\?[0-9]+$ ]] randomly stopped working, had to improvise
+    echo "Error: Invalid modifier, numbers only!"
+    exit
+  fi
+
+  MODIFIER=$1
+  MODIFIER="${MODIFIER//[$'\t\r\n ']/}" # Remove all new line, tab characters from the string
+  ROLL_MODIFIER=$MODIFIER
 }
 
 # set max value of dice to roll
 function set_max() {
-  if [ $# -gt 0 ]; then               # if there is a parameter
-    if ! [[ "$1" =~ ^[0-9]+$ ]]; then # check if parameter is a positive number
-      echo "Error: Invalid dice type, positive numbers only!"
-      exit
-    else
-      NUM_MAX=$1
-      NUM_MAX="${NUM_MAX//[$'\t\r\n ']/}" # Remove all new line, tab characters from the string
-      if [ $NUM_MAX -lt 2 ]; then         # check if zero
-        echo "Error: Cannot roll a die with fewer than two faces!"
-        exit
-      elif [ $NUM_MAX -gt 1 ]; then
-        DICE_MAX=$NUM_MAX
-      else
-        echo "Error: Invalid dice type, out of range!" # should be impossible due to number check
-        exit
-      fi
-    fi
-  else # if there is no parameter
+  # if there is no parameter
+  if [ $# -eq 0 ]; then
     echo "No dice type set"
+    exit
   fi
+  if ! [[ "$1" =~ ^[0-9]+$ ]]; then # check if parameter is a positive number
+    echo "Error: Invalid dice type, positive numbers only!"
+    exit
+  fi
+
+  NUM_MAX=$1
+  NUM_MAX="${NUM_MAX//[$'\t\r\n ']/}" # Remove all new line, tab characters from the string
+
+  if [ $NUM_MAX -lt 2 ]; then # check if less than two
+    echo "Error: Cannot roll a die with fewer than two faces!"
+    exit
+  fi
+
+  DICE_MAX=$NUM_MAX
 }
 
 # set number of dice to roll
 function set_rolls() {
-  if [ $# -gt 0 ]; then               # if there is a parameter
-    if ! [[ "$1" =~ ^[0-9]+$ ]]; then # check if parameter is a positive number
-      echo "Error: Invalid number of rolls, positive numbers only!"
-      exit
-    else
-      NUM_ROLLS=$1
-      NUM_ROLLS="${NUM_ROLLS//[$'\t\r\n ']/}" # Remove all new line, tab characters from the string
-      if [ $NUM_ROLLS -lt 1 ]; then           # check if zero
-        echo "Error: Cannot roll less than once!"
-        exit
-      elif [ $NUM_ROLLS -eq 1 ]; then
-        DICE_ROLLS=$NUM_ROLLS
-      elif [ $NUM_ROLLS -gt 1 ]; then
-        DICE_ROLLS=$NUM_ROLLS
-      else
-        echo "Error: Invalid number of rolls, out of range!" # should be impossible due to number check
-        exit
-      fi
-    fi
-  else # if there is no parameter
+  # if there is no parameter
+  if [ $# -eq 0 ]; then
     echo "No number of rolls set"
+    exit
+  fi
+  if ! [[ "$1" =~ ^[0-9]+$ ]]; then # check if parameter is a positive number
+    echo "Error: Invalid number of rolls, positive numbers only!"
+    exit
+  fi
+
+  NUM_ROLLS=$1
+  NUM_ROLLS="${NUM_ROLLS//[$'\t\r\n ']/}" # Remove all new line, tab characters from the string
+  if [ $NUM_ROLLS -lt 1 ]; then           # check if zero
+    echo "Error: Cannot roll less than once!"
+    exit
+  fi
+
+  if [ $NUM_ROLLS -eq 1 ]; then
+    DICE_ROLLS=$NUM_ROLLS
+  elif [ $NUM_ROLLS -gt 1 ]; then
+    DICE_ROLLS=$NUM_ROLLS
   fi
 }
 
@@ -175,7 +175,7 @@ Help() {
   echo "Generates a given number of random values between 1 and a given maximum."
   echo
   echo "Usage:"
-  echo "  dice [-h] [-c] [<dice_rolls>] [<dice_max>] [<roll_modifier>]"
+  echo "  dice [-c] [<dice_rolls>] [<dice_max>] [<roll_modifier>]"
   echo "  dice [-c]"
   echo "  dice [-c] <dice_rolls>"
   echo "  dice [-c] <dice_rolls> <dice_max>"
