@@ -106,7 +106,7 @@ function roll_dice() {
 function set_modifier() {
   if [ $# -gt 0 ]; then                                            # if there is a parameter
     if ! [[ "$1" =~ ^[0-9]+$ ]] && ! [[ "$1" =~ ^-[0-9]+$ ]]; then # check if parameter is a number
-      # if ! [[ "$1" =~ ^-\?[0-9]+$ ]] randomly stopped working, had to improvisedy fix it
+      # if ! [[ "$1" =~ ^-\?[0-9]+$ ]] randomly stopped working, had to improvise to fix it
       echo "Error: Invalid modifier, numbers only!"
       exit
     else
