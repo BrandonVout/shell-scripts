@@ -84,20 +84,28 @@ function roll_dice() {
   for ((i = 0; i < $DICE_ROLLS; i++)); do
     ROLL=$(((RANDOM % $DICE_MAX) + $DICE_MIN))
     OUTPUT=$ROLL
+
     # modifiers
-    if [ $ROLL_MODIFIER -gt 0 ]; then
-      OUTPUT="$ROLL \t+$ROLL_MODIFIER \t= $((ROLL + ROLL_MODIFIER))"
-    elif [ $ROLL_MODIFIER -lt 0 ]; then
-      OUTPUT="$ROLL \t$ROLL_MODIFIER \t= $((ROLL + ROLL_MODIFIER))"
+    ROLL_MOD="$ROLL_MODIFIER"
+    if [ $ROLL_MOD -gt 0 ]; then
+      ROLL_MOD="+$ROLL_MOD"
     fi
+    if [ $ROLL_MOD -ne 0 ]; then
+      OUTPUT="$ROLL \t$ROLL_MOD \t= $((ROLL + ROLL_MODIFIER))"
+    fi
+
     # critical hit and fumbles when enabled
-    if [ $ROLL_CRITICAL = "true" ]; then
-      if [ $ROLL -eq $DICE_MAX ]; then
-        OUTPUT="$OUTPUT \tNatural $DICE_MAX"
-      elif [ $ROLL -eq $DICE_MIN ]; then
-        OUTPUT="$OUTPUT \tNatural $DICE_MIN"
-      fi
+    if [ $ROLL_CRITICAL = "false" ]; then
+      echo -e $OUTPUT
+      continue
     fi
+
+    if [ $ROLL -eq $DICE_MAX ]; then
+      OUTPUT="$OUTPUT \tNatural $DICE_MAX"
+    elif [ $ROLL -eq $DICE_MIN ]; then
+      OUTPUT="$OUTPUT \tNatural $DICE_MIN"
+    fi
+
     # print roll result
     echo -e $OUTPUT
   done
