@@ -41,42 +41,48 @@ ROLL_CRITICAL="false"
 # roll default or last rolled dice
 function roll_dice() {
   # print roll message, describle what is being rolled
-  if [ $DICE_MAX -gt 1 ]; then
-    if [ $DICE_ROLLS -gt 1 ]; then
-      echo "Rolling" $DICE_ROLLS"d"$DICE_MAX"!"
-    else
-      echo "Rolling a d"$DICE_MAX"!"
-    fi
+  if [ $DICE_ROLLS -gt 1 ]; then
+    echo "Rolling" $DICE_ROLLS"d"$DICE_MAX"!"
+  else
+    echo "Rolling a d"$DICE_MAX"!"
   fi
-  if [ $ROLL_MODIFIER -gt 0 ]; then
+
+  if [ $ROLL_MODIFIER -gt 0 ]; then # positive modifier
     echo "Rolls have a +"$ROLL_MODIFIER "modifier!"
-  elif [ $ROLL_MODIFIER -lt 0 ]; then
-    echo "Rolls have a -"${ROLL_MODIFIER#-} "modifier!" # remove the '-' from the value of ROLL_MODIFIER
+  elif [ $ROLL_MODIFIER -lt 0 ]; then # negative modifier
+    echo "Rolls have a "$ROLL_MODIFIER "modifier!"
   fi
+
   if [ $ROLL_CRITICAL = "true" ]; then
     echo "Critical rolls enabled!"
   fi
 
-  # print table headings
+  # compose header
   TABLE="Roll"
-  LINE=4 # number of characters in the table heading
   if [ $ROLL_MODIFIER -ne 0 ]; then
     TABLE="$TABLE\tMod\tTotal"
-    LINE=$((LINE + 17)) # add number of characters in the heading to line
   fi
   if [ $ROLL_CRITICAL = "true" ]; then
     TABLE="$TABLE\tCritical"
-    LINE=$((LINE + 11)) # add number of characters in the heading to line
-    # account for the larger tab space between Roll and Critical than Total and Critical
+  fi
+  # print table headers
+  echo -e "\n$TABLE"
+
+  # print header line
+  LINE_LENGTH="${#TABLE}" # get length of headers (each tab equals 2 characters)
+  if [ $ROLL_MODIFIER -ne 0 ]; then
+    # add number of characters between "Roll" and "Mod" and "Total", -2 per tab
+    LINE_LENGTH=$((LINE_LENGTH + 5))
+  fi
+  if [ $ROLL_CRITICAL = "true" ]; then
+    # add number of characters before "Critical", -2 from the tab
+    LINE_LENGTH=$((LINE_LENGTH + 1))
+    # account for the larger gap between "Roll" and "Critical" than "Total" and "Critical"
     if [ $ROLL_MODIFIER -eq 0 ]; then
-      LINE=$((LINE + 1))
+      LINE_LENGTH=$((LINE_LENGTH + 1))
     fi
   fi
-  echo
-  echo -e "$TABLE"
-  for ((x = 0; x < $LINE; x++)); do
-    printf %s -
-  done
+  printf %"$LINE_LENGTH"s | tr " " "-"
   echo
 
   # roll dice
