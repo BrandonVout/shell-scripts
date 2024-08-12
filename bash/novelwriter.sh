@@ -2,7 +2,7 @@
 
 # run novelWriter
 function novelwriter() {
-	python3 ${HOME}/Repos/Tools/novelWriter/novelWriter.py
+  python3 ${HOME}/Repos/Tools/novelWriter/novelWriter.py
 }
 
 # update novelWriter

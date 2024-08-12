@@ -34,7 +34,7 @@ OTHER_SHELLS="$HOME/Shells"
 source "$OTHER_SHELLS/bash/rst_to_md.sh"
 
 # Goto my custom shell folder(s)
-alias myshells='cd $HOME/Development/Shell'	# local shells made by me
-alias lshells='cd $OTHER_SHELLS'			# local shells (not made by me)
+alias myshells='cd $HOME/Development/Shell' # local shells made by me
+alias lshells='cd $OTHER_SHELLS'            # local shells (not made by me)
 # alias gshells='cd "$HOME/Google Drive/1_Sync_Unenc/MyProjects/Shell"'
 alias gshells='cd "/Volumes/GoogleDrive/My Drive/1_Sync_Unenc/MyProjects/Shell"'
