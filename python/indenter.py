@@ -41,6 +41,9 @@ def indenter(max_number: int, fillchar = " ", base_number = 10):
     Returns:
         str: String filled with fillchar based on how many times max_number exceeds base_number.
     """
+    if base_number == 0:
+        return "Error: Divide by zero! "
+
     current_number = max_number
     indent = ""
 
