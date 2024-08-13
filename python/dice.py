@@ -35,7 +35,7 @@
 from enum import Enum
 import random
 
-from python.indenter import indenter
+from indenter import indenter
 
 
 class Option(Enum):
@@ -44,7 +44,7 @@ class Option(Enum):
     NO = 1
 
 
-def confirm_check(confirm_choice):
+def confirm_check(confirm_choice: str):
     if confirm_choice == "y":
         print("Resetting!\n")
         return Option.YES
@@ -56,7 +56,7 @@ def confirm_check(confirm_choice):
         return Option.ERROR
 
 
-def confirmation(confirmation_message):
+def confirmation(confirmation_message: str):
     confirmation_input = ""
     confirmation_ongoing = True
 
@@ -69,10 +69,10 @@ def confirmation(confirmation_message):
     return confirmation_input == "y"
 
 
-def nat_check(number_to_check, dice_type):
+def nat_check(number_to_check: int, dice_type: int):
     nat_result = str(number_to_check)
 
-    if number_to_check is dice_type:
+    if number_to_check == dice_type:
         nat_result += f" Natural {dice_type}"
     elif number_to_check == 1:
         result_indent = indenter(dice_type)
@@ -81,7 +81,7 @@ def nat_check(number_to_check, dice_type):
     return nat_result
 
 
-def roll(dice_count, dice_type):
+def roll(dice_count: int, dice_type: int):
     table_header = f"Rolling {dice_count}d{dice_type}:"
     table_header_length = len(table_header)
     table_header_underline = ""
@@ -96,7 +96,7 @@ def roll(dice_count, dice_type):
         print(roll_result)
 
 
-def int_check(input_to_check, number_to_exceed):
+def int_check(input_to_check: str, number_to_exceed: int):
     error_message = f"Invalid selection! Please choose number greater than {number_to_exceed}!\n"
 
     is_valid_int_input = input_to_check.isdigit()
@@ -110,7 +110,7 @@ def int_check(input_to_check, number_to_exceed):
     return is_valid_int_input
 
 
-def get_int(prompt_message, number_to_exceed = 0):
+def get_int(prompt_message: str, number_to_exceed: int = 0):
     input_as_string = ""
     is_valid_int_input = False
 
