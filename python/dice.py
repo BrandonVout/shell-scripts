@@ -83,7 +83,7 @@ def nat_check(number_to_check, dice_type):
     if number_to_check is dice_type:
         nat_result += " Natural %s" % dice_type
     elif number_to_check == 1:
-        nat_result += spacer(" ", dice_type) + " Natural 1"
+        nat_result += "%s Natural 1" % spacer(" ", dice_type)
 
     return nat_result
 
