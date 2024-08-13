@@ -46,11 +46,9 @@ class Option(Enum):
 
 def confirm_check(confirm_choice: str):
     if confirm_choice == "y":
-        # print("Resetting!\n")
         print()
         return Option.YES
     elif confirm_choice == "n":
-        # print("Stopping!\n")
         return Option.NO
     else:
         print("Invalid selection!\n")
