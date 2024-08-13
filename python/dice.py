@@ -11,7 +11,7 @@
 ################################################################################
 #                                                                              #
 #  Copyright (C) 2022 Brandon Vout                                             #
-#  bvout@brandonvout.com                                                       #
+#  contact@brandonvout.com                                                     #
 #                                                                              #
 #  This program is free software; you can redistribute it and/or modify        #
 #  it under the terms of the GNU Lesser General Public License as published    #
@@ -67,7 +67,7 @@ def confirmation(confirmation_message):
     return confirmation_input == "y"
 
 
-def spacer(type_of_spaces, number_of_spaces, number_base=10):
+def spacer(type_of_spaces, number_of_spaces, number_base = 10):
     spaces = ""
 
     while number_of_spaces >= number_base:
@@ -81,7 +81,7 @@ def nat_check(number_to_check, dice_type):
     nat_result = str(number_to_check)
 
     if number_to_check is dice_type:
-        nat_result += " Natural " + str(dice_type)
+        nat_result += " Natural %s" % dice_type
     elif number_to_check == 1:
         nat_result += spacer(" ", dice_type) + " Natural 1"
 
@@ -89,8 +89,8 @@ def nat_check(number_to_check, dice_type):
 
 
 def roll(dice_count, dice_type):
-    table_header = "Rolling " + str(dice_count) + "d" + str(dice_type) + ":"
-    table_header_underline = "------------" + spacer("-", dice_count) + spacer("-", dice_type)
+    table_header = "Rolling %sd%s:" % (dice_count, dice_type)
+    table_header_underline = "------------%s%s" % (spacer("-", dice_count), spacer("-", dice_type))
 
     print(table_header)
     print(table_header_underline)
@@ -101,29 +101,27 @@ def roll(dice_count, dice_type):
         print(roll_result)
 
 
-def int_check(input_to_check):
-    error_message = "Invalid selection! Please choose number greater than zero (0)!\n"
+def int_check(input_to_check, number_to_exceed):
+    error_message = "Invalid selection! Please choose number greater than %s!\n" % number_to_exceed
 
-    input_is_not_a_valid_int = not input_to_check.isdigit()
-
-    if input_is_not_a_valid_int:
-        print(error_message)
-    else:
+    is_valid_int_input = input_to_check.isdigit()
+    if is_valid_int_input:
         input_as_integer = int(input_to_check)
-        if input_as_integer < 1:
-            input_is_not_a_valid_int = True
-            print(error_message)
+        is_valid_int_input = input_as_integer > number_to_exceed
 
-    return input_is_not_a_valid_int
+    if not is_valid_int_input:
+        print(error_message)
+
+    return is_valid_int_input
 
 
-def get_int(prompt_message):
+def get_int(prompt_message, number_to_exceed = 0):
     input_as_string = ""
-    input_is_not_a_valid_int = True
+    is_valid_int_input = False
 
-    while input_is_not_a_valid_int:
+    while not is_valid_int_input:
         input_as_string = input(prompt_message)
-        input_is_not_a_valid_int = int_check(input_as_string)
+        is_valid_int_input = int_check(input_as_string, number_to_exceed)
 
     input_as_integer = int(input_as_string)
 
@@ -134,8 +132,8 @@ def main():
     dice_loop_is_ongoing = True
 
     while dice_loop_is_ongoing:
-        dice_count = get_int("Select number of dice to roll: ")
-        dice_type = get_int("Select a die to roll: ")
+        dice_count = get_int("Select number of dice to roll: ", 0)
+        dice_type = get_int("Select a die to roll: ", 1)
         print()
 
         roll(dice_count, dice_type)
