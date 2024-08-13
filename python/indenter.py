@@ -1,13 +1,4 @@
 ################################################################################
-#                                 Space Filler                                 #
-#                                                                              #
-# Generates indent based on number of digits in a given number.                #
-# Supports non-base-ten number systems.                                        #
-#                                                                              #
-# Example:                                                                     #
-#   A value of 100 will generate an indent of 2 spaces to render "0" as "  0". #
-#                                                                              #
-################################################################################
 ################################################################################
 ################################################################################
 #                                                                              #
@@ -33,11 +24,28 @@
 ################################################################################
 
 
-def space_filler(number_of_spaces, fillchar = " ", number_base = 10):
-    spaces = ""
+def indenter(max_number: int, fillchar = " ", base_number = 10):
+    """
+    Generates indent based on number of digits in a given number.
 
-    while number_of_spaces >= number_base:
-        spaces += str(fillchar)
-        number_of_spaces /= number_base
+    Supports non-base-ten number systems.
 
-    return spaces
+    Example:
+        A value of 100 will generate an indent of 2 spaces to render "0" as "  0".
+
+    Args:
+        max_number (int): Number to compare to base_number. Highest number value in sequence.
+        fillchar (str, optional): Character to fill indent (e.g. "0", "-"). Defaults to " ".
+        base_number (int, optional): Base number system (e.g. binary, decimal, hexadecimal). Defaults to 10.
+
+    Returns:
+        str: String filled with fillchar based on how many times max_number exceeds base_number.
+    """
+    current_number = max_number
+    indent = ""
+
+    while current_number >= base_number:
+        indent += str(fillchar)
+        current_number /= base_number
+
+    return indent
