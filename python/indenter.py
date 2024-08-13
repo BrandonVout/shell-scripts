@@ -43,6 +43,8 @@ def indenter(max_number: int, fillchar = " ", base_number = 10):
     """
     if base_number == 0:
         return "Error: Divide by zero! "
+    if base_number < 0:
+        return "Error: Negative base! Must be a positive integer greater than zero. "
 
     current_number = max_number
     indent = ""
