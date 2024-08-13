@@ -35,6 +35,8 @@
 from enum import Enum
 import random
 
+from space_filler import space_filler
+
 
 class Option(Enum):
     ERROR = -1
@@ -47,7 +49,7 @@ def confirm_check(confirm_choice):
         print("Resetting!\n")
         return Option.YES
     elif confirm_choice == "n":
-        print("Stopping!\n")
+        # print("Stopping!\n")
         return Option.NO
     else:
         print("Invalid selection!\n")
@@ -67,30 +69,23 @@ def confirmation(confirmation_message):
     return confirmation_input == "y"
 
 
-def spacer(type_of_spaces, number_of_spaces, number_base = 10):
-    spaces = ""
-
-    while number_of_spaces >= number_base:
-        spaces += str(type_of_spaces)
-        number_of_spaces /= number_base
-
-    return spaces
-
-
 def nat_check(number_to_check, dice_type):
     nat_result = str(number_to_check)
 
     if number_to_check is dice_type:
-        nat_result += " Natural %s" % dice_type
+        nat_result += f" Natural {dice_type}"
     elif number_to_check == 1:
-        nat_result += "%s Natural 1" % spacer(" ", dice_type)
+        result_indent = space_filler(dice_type)
+        nat_result += f"{result_indent} Natural 1"
 
     return nat_result
 
 
 def roll(dice_count, dice_type):
-    table_header = "Rolling %sd%s:" % (dice_count, dice_type)
-    table_header_underline = "------------%s%s" % (spacer("-", dice_count), spacer("-", dice_type))
+    table_header = f"Rolling {dice_count}d{dice_type}:"
+    table_header_length = len(table_header)
+    table_header_underline = ""
+    table_header_underline = f"{table_header_underline:-<{table_header_length}}"
 
     print(table_header)
     print(table_header_underline)
@@ -102,7 +97,7 @@ def roll(dice_count, dice_type):
 
 
 def int_check(input_to_check, number_to_exceed):
-    error_message = "Invalid selection! Please choose number greater than %s!\n" % number_to_exceed
+    error_message = f"Invalid selection! Please choose number greater than {number_to_exceed}!\n"
 
     is_valid_int_input = input_to_check.isdigit()
     if is_valid_int_input:

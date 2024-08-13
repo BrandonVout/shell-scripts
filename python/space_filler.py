@@ -2,6 +2,7 @@
 #                                 Space Filler                                 #
 #                                                                              #
 # Generates indent based on number of digits in a given number.                #
+# Supports non-base-ten number systems.                                        #
 #                                                                              #
 # Example:                                                                     #
 #   A value of 100 will generate an indent of 2 spaces to render "0" as "  0". #
