@@ -35,7 +35,7 @@
 from enum import Enum
 import random
 
-from indenter import indenter
+from python.table_indenter import table_indenter
 
 
 class Option(Enum):
@@ -74,7 +74,7 @@ def nat_check(number_to_check: int, dice_type: int):
     if number_to_check == dice_type:
         nat_result += f" Natural {dice_type}"
     elif number_to_check == 1:
-        result_indent = indenter(dice_type)
+        result_indent = table_indenter(dice_type)
         nat_result += f"{result_indent} Natural 1"
 
     return nat_result

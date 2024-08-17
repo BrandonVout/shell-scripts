@@ -24,9 +24,9 @@
 ################################################################################
 
 
-def indenter(max_number: int, fillchar: str = " ", base_number: int = 10):
+def table_indenter(max_number: int, fillchar: str = " ", base_number: int = 10):
     """
-    Generates indent based on number of digits in a given number.
+    Generates table column indent based on number of digits in a given number.
 
     Supports non-base-ten number systems.
 
