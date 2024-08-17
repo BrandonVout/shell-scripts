@@ -35,7 +35,7 @@
 from enum import Enum
 import random
 
-from python.table_indenter import table_indenter
+from table_indenter import table_indenter
 
 
 class Option(Enum):
