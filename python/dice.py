@@ -97,9 +97,9 @@ def roll(dice_count: int, dice_type: int):
 
 def int_check(input_to_check: str, number_to_exceed: int):
     error_message = f"Invalid selection! Please choose number greater than {number_to_exceed}!\n"
-    is_valid_int_input = False
+    is_valid_int_input = input_to_check.isdigit()
 
-    if not input_to_check.isdigit():
+    if not is_valid_int_input:
         print(error_message)
         return is_valid_int_input
 
