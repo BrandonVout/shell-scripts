@@ -120,9 +120,7 @@ def get_int(prompt_message: str, number_to_exceed: int = 0):
         input_as_string = input(prompt_message)
         is_valid_int_input = check_int(input_as_string, number_to_exceed)
 
-    input_as_integer = int(input_as_string)
-
-    return input_as_integer
+    return int(input_as_string)
 
 
 def main():
