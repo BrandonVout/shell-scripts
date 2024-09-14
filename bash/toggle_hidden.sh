@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# macOS-only
+
 # hide file(s)
 alias hide='chflags hidden'
 

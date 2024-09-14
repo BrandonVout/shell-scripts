@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ### ARCHIVE EXTRACTION
-# usage: ex <file>
-ex() {
+# usage: ext <file>
+ext() {
   if [ -f "$1" ]; then
     case $1 in
     *.tar.bz2) tar xjf $1 ;;
