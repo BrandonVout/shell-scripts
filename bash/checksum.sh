@@ -12,13 +12,15 @@ function getsums() {
 }
 
 function getmd5() {
-  echo "md5:"
-  md5 $1
+  local input="$1"
+  local output=$(md5sum $input)
+  echo -e "md5:\t$output"
 }
 
 function getsha1() {
-  echo "sha1:"
-  shasum $1
+  local input="$1"
+  local output=$(shasum $input)
+  echo -e "sha1:\t$output"
 }
 
 function getsha() {
@@ -26,11 +28,13 @@ function getsha() {
 }
 
 function getsha256() {
-  echo "sha256:"
-  shasum -a 256 $1
+  local input="$1"
+  local output=$(shasum -a 256 $input)
+  echo -e "sha256:\t$output"
 }
 
 function getsha512() {
-  echo "sha512:"
-  shasum -a 512 $1
+  local input="$1"
+  local output=$(shasum -a 512 $input)
+  echo -e "sha512:\t$output"
 }
