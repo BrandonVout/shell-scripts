@@ -49,6 +49,7 @@ def confirm_check(confirm_choice: str):
         print()
         return Option.YES
     elif confirm_choice == "n":
+        print()
         return Option.NO
     else:
         print("Invalid selection!\n")
