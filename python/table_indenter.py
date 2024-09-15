@@ -41,10 +41,11 @@ def table_indenter(max_number: int, fillchar: str = " ", base_number: int = 10):
     Returns:
         str: String filled with fillchar based on how many times max_number exceeds base_number.
     """
+    base_error_message = "Base must be a positive integer greater than zero."
     if base_number == 0:
-        return "Error: Divide by zero! Base must be a positive integer greater than zero. "
+        return f"Error: Divide by zero! {base_error_message}"
     if base_number < 0:
-        return "Error: Negative base! Base must be a positive integer greater than zero. "
+        return f"Error: Negative base! {base_error_message}"
 
     current_number = max_number
     indent = ""
