@@ -38,3 +38,8 @@ function getsha512() {
   local output=$(shasum -a 512 $input)
   echo -e "sha512:\t$output"
 }
+
+alias checksha1="shasum -c $1"
+alias checksha="shasum -c $1"
+alias checksha256="sha256sum -c $1"
+alias checksha512="sha512sum -c $1"
