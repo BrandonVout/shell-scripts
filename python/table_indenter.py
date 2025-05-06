@@ -25,33 +25,33 @@
 
 
 def table_indenter(max_number: int, fillchar: str = " ", base_number: int = 10):
-    """
-    Generates table column indent based on number of digits in a given number.
+	"""
+	Generates table column indent based on number of digits in a given number.
 
-    Supports non-base-ten number systems.
+	Supports non-base-ten number systems.
 
-    Example:
-        A value of 100 will generate an indent of 2 spaces to render "0" as "  0".
+	Example:
+		A value of 100 will generate an indent of 2 spaces to render "0" as "  0".
 
-    Args:
-        max_number (int): Number to compare to base_number. Highest number value in sequence.
-        fillchar (str, optional): Character to fill indent (e.g. "0", "-"). Defaults to " ".
-        base_number (int, optional): Base number system (e.g. binary, decimal, hexadecimal). Defaults to 10.
+	Args:
+		max_number (int): Number to compare to base_number. Highest number value in sequence.
+		fillchar (str, optional): Character to fill indent (e.g. "0", "-"). Defaults to " ".
+		base_number (int, optional): Base number system (e.g. binary, decimal, hexadecimal). Defaults to 10.
 
-    Returns:
-        str: String filled with fillchar based on how many times max_number exceeds base_number.
-    """
-    base_error_message = "Base must be a positive integer greater than zero."
-    if base_number == 0:
-        return f"Error: Divide by zero! {base_error_message}"
-    if base_number < 0:
-        return f"Error: Negative base! {base_error_message}"
+	Returns:
+		str: String filled with fillchar based on how many times max_number exceeds base_number.
+	"""
+	base_error_message = "Base must be a positive integer greater than zero."
+	if base_number == 0:
+		return f"Error: Divide by zero! {base_error_message}"
+	if base_number < 0:
+		return f"Error: Negative base! {base_error_message}"
 
-    current_number = max_number
-    indent = ""
+	current_number = max_number
+	indent = ""
 
-    while current_number >= base_number:
-        indent += str(fillchar)
-        current_number /= base_number
+	while current_number >= base_number:
+		indent += str(fillchar)
+		current_number /= base_number
 
-    return indent
+	return indent

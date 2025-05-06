@@ -40,160 +40,160 @@ ROLL_CRITICAL="false"
 
 # roll default or last rolled dice
 function roll_dice() {
-  # print roll message, describle what is being rolled
-  if [ $DICE_ROLLS -gt 1 ]; then
-    echo "Rolling" $DICE_ROLLS"d"$DICE_MAX"!"
-  else
-    echo "Rolling a d"$DICE_MAX"!"
-  fi
+	# print roll message, describle what is being rolled
+	if [ $DICE_ROLLS -gt 1 ]; then
+		echo "Rolling" $DICE_ROLLS"d"$DICE_MAX"!"
+	else
+		echo "Rolling a d"$DICE_MAX"!"
+	fi
 
-  if [ $ROLL_MODIFIER -gt 0 ]; then # positive modifier
-    echo "Rolls have a +"$ROLL_MODIFIER "modifier!"
-  elif [ $ROLL_MODIFIER -lt 0 ]; then # negative modifier
-    echo "Rolls have a "$ROLL_MODIFIER "modifier!"
-  fi
+	if [ $ROLL_MODIFIER -gt 0 ]; then # positive modifier
+		echo "Rolls have a +"$ROLL_MODIFIER "modifier!"
+	elif [ $ROLL_MODIFIER -lt 0 ]; then # negative modifier
+		echo "Rolls have a "$ROLL_MODIFIER "modifier!"
+	fi
 
-  if [ $ROLL_CRITICAL = "true" ]; then
-    echo "Critical rolls enabled!"
-  fi
+	if [ $ROLL_CRITICAL = "true" ]; then
+		echo "Critical rolls enabled!"
+	fi
 
-  # compose header
-  TABLE="Roll"
-  LINE_LENGTH=4
-  if [ $ROLL_MODIFIER -ne 0 ]; then
-    TABLE="$TABLE\tMod\tTotal"
-    # add number of characters between headers, -2 per tab character
-    LINE_LENGTH=$((${#TABLE} + 5))
-  fi
-  if [ $ROLL_CRITICAL = "true" ]; then
-    TABLE="$TABLE\tCritical"
-    # add number of characters between headers, -2 per tab character
-    LINE_LENGTH=$((${#TABLE} + 2))
-    # account for whether "Critical" follows "Roll" or "Total"
-    if [ $ROLL_MODIFIER -ne 0 ]; then
-      LINE_LENGTH=$((LINE_LENGTH + 4))
-    fi
-  fi
-  # print table headers
-  echo -e "\n$TABLE"
-  # fill header line
-  printf %"$LINE_LENGTH"s | tr " " "-"
-  echo
+	# compose header
+	TABLE="Roll"
+	LINE_LENGTH=4
+	if [ $ROLL_MODIFIER -ne 0 ]; then
+		TABLE="$TABLE\tMod\tTotal"
+		# add number of characters between headers, -2 per tab character
+		LINE_LENGTH=$((${#TABLE} + 5))
+	fi
+	if [ $ROLL_CRITICAL = "true" ]; then
+		TABLE="$TABLE\tCritical"
+		# add number of characters between headers, -2 per tab character
+		LINE_LENGTH=$((${#TABLE} + 2))
+		# account for whether "Critical" follows "Roll" or "Total"
+		if [ $ROLL_MODIFIER -ne 0 ]; then
+			LINE_LENGTH=$((LINE_LENGTH + 4))
+		fi
+	fi
+	# print table headers
+	echo -e "\n$TABLE"
+	# fill header line
+	printf %"$LINE_LENGTH"s | tr " " "-"
+	echo
 
-  # roll dice
-  for ((i = 0; i < $DICE_ROLLS; i++)); do
-    ROLL=$(((RANDOM % $DICE_MAX) + $DICE_MIN))
-    OUTPUT=$ROLL
+	# roll dice
+	for ((i = 0; i < $DICE_ROLLS; i++)); do
+		ROLL=$(((RANDOM % $DICE_MAX) + $DICE_MIN))
+		OUTPUT=$ROLL
 
-    # modifiers
-    ROLL_MOD="$ROLL_MODIFIER"
-    if [ $ROLL_MOD -gt 0 ]; then
-      ROLL_MOD="+$ROLL_MOD"
-    fi
-    if [ $ROLL_MOD -ne 0 ]; then
-      OUTPUT="$ROLL \t$ROLL_MOD \t= $((ROLL + ROLL_MODIFIER))"
-    fi
+		# modifiers
+		ROLL_MOD="$ROLL_MODIFIER"
+		if [ $ROLL_MOD -gt 0 ]; then
+			ROLL_MOD="+$ROLL_MOD"
+		fi
+		if [ $ROLL_MOD -ne 0 ]; then
+			OUTPUT="$ROLL \t$ROLL_MOD \t= $((ROLL + ROLL_MODIFIER))"
+		fi
 
-    # critical hit and fumbles when enabled
-    if [ $ROLL_CRITICAL = "false" ]; then
-      echo -e $OUTPUT
-      continue
-    fi
+		# critical hit and fumbles when enabled
+		if [ $ROLL_CRITICAL = "false" ]; then
+			echo -e $OUTPUT
+			continue
+		fi
 
-    if [ $ROLL -eq $DICE_MAX ]; then
-      OUTPUT="$OUTPUT \tNatural $DICE_MAX"
-    elif [ $ROLL -eq $DICE_MIN ]; then
-      OUTPUT="$OUTPUT \tNatural $DICE_MIN"
-    fi
+		if [ $ROLL -eq $DICE_MAX ]; then
+			OUTPUT="$OUTPUT \tNatural $DICE_MAX"
+		elif [ $ROLL -eq $DICE_MIN ]; then
+			OUTPUT="$OUTPUT \tNatural $DICE_MIN"
+		fi
 
-    # print roll result
-    echo -e $OUTPUT
-  done
+		# print roll result
+		echo -e $OUTPUT
+	done
 }
 
 # set modifier for next roll
 function set_modifier() {
-  # if there is no parameter
-  if [ $# -eq 0 ]; then
-    echo "No modifier set"
-    exit
-  fi
-  if ! [[ "$1" =~ ^[0-9]+$ ]] && ! [[ "$1" =~ ^-[0-9]+$ ]]; then # check if parameter is a number
-    # if ! [[ "$1" =~ ^-\?[0-9]+$ ]] randomly stopped working, had to improvise
-    echo "Error: Invalid modifier, numbers only!"
-    exit
-  fi
+	# if there is no parameter
+	if [ $# -eq 0 ]; then
+		echo "No modifier set"
+		exit
+	fi
+	if ! [[ "$1" =~ ^[0-9]+$ ]] && ! [[ "$1" =~ ^-[0-9]+$ ]]; then # check if parameter is a number
+		# if ! [[ "$1" =~ ^-\?[0-9]+$ ]] randomly stopped working, had to improvise
+		echo "Error: Invalid modifier, numbers only!"
+		exit
+	fi
 
-  MODIFIER=$1
-  MODIFIER="${MODIFIER//[$'\t\r\n ']/}" # Remove all new line, tab characters from the string
-  ROLL_MODIFIER=$MODIFIER
+	MODIFIER=$1
+	MODIFIER="${MODIFIER//[$'\t\r\n ']/}" # Remove all new line, tab characters from the string
+	ROLL_MODIFIER=$MODIFIER
 }
 
 # set max value of dice to roll
 function set_max() {
-  # if there is no parameter
-  if [ $# -eq 0 ]; then
-    echo "No dice type set"
-    exit
-  fi
-  if ! [[ "$1" =~ ^[0-9]+$ ]]; then # check if parameter is a positive number
-    echo "Error: Invalid dice type, positive numbers only!"
-    exit
-  fi
+	# if there is no parameter
+	if [ $# -eq 0 ]; then
+		echo "No dice type set"
+		exit
+	fi
+	if ! [[ "$1" =~ ^[0-9]+$ ]]; then # check if parameter is a positive number
+		echo "Error: Invalid dice type, positive numbers only!"
+		exit
+	fi
 
-  NUM_MAX=$1
-  NUM_MAX="${NUM_MAX//[$'\t\r\n ']/}" # Remove all new line, tab characters from the string
+	NUM_MAX=$1
+	NUM_MAX="${NUM_MAX//[$'\t\r\n ']/}" # Remove all new line, tab characters from the string
 
-  if [ $NUM_MAX -lt 2 ]; then # check if less than two
-    echo "Error: Cannot roll a die with fewer than two faces!"
-    exit
-  fi
+	if [ $NUM_MAX -lt 2 ]; then # check if less than two
+		echo "Error: Cannot roll a die with fewer than two faces!"
+		exit
+	fi
 
-  DICE_MAX=$NUM_MAX
+	DICE_MAX=$NUM_MAX
 }
 
 # set number of dice to roll
 function set_rolls() {
-  # if there is no parameter
-  if [ $# -eq 0 ]; then
-    echo "No number of rolls set"
-    exit
-  fi
-  if ! [[ "$1" =~ ^[0-9]+$ ]]; then # check if parameter is a positive number
-    echo "Error: Invalid number of rolls, positive numbers only!"
-    exit
-  fi
+	# if there is no parameter
+	if [ $# -eq 0 ]; then
+		echo "No number of rolls set"
+		exit
+	fi
+	if ! [[ "$1" =~ ^[0-9]+$ ]]; then # check if parameter is a positive number
+		echo "Error: Invalid number of rolls, positive numbers only!"
+		exit
+	fi
 
-  NUM_ROLLS=$1
-  NUM_ROLLS="${NUM_ROLLS//[$'\t\r\n ']/}" # Remove all new line, tab characters from the string
-  if [ $NUM_ROLLS -lt 1 ]; then           # check if zero
-    echo "Error: Cannot roll less than once!"
-    exit
-  fi
+	NUM_ROLLS=$1
+	NUM_ROLLS="${NUM_ROLLS//[$'\t\r\n ']/}" # Remove all new line, tab characters from the string
+	if [ $NUM_ROLLS -lt 1 ]; then           # check if zero
+		echo "Error: Cannot roll less than once!"
+		exit
+	fi
 
-  if [ $NUM_ROLLS -eq 1 ]; then
-    DICE_ROLLS=$NUM_ROLLS
-  elif [ $NUM_ROLLS -gt 1 ]; then
-    DICE_ROLLS=$NUM_ROLLS
-  fi
+	if [ $NUM_ROLLS -eq 1 ]; then
+		DICE_ROLLS=$NUM_ROLLS
+	elif [ $NUM_ROLLS -gt 1 ]; then
+		DICE_ROLLS=$NUM_ROLLS
+	fi
 }
 
 Help() {
-  # Display Help
-  echo "Dice Roller"
-  echo "Generates a given number of random values between 1 and a given maximum."
-  echo
-  echo "Usage:"
-  echo "  dice [-c] [<dice_rolls>] [<dice_max>] [<roll_modifier>]"
-  echo "  dice [-c]"
-  echo "  dice [-c] <dice_rolls>"
-  echo "  dice [-c] <dice_rolls> <dice_max>"
-  echo "  dice [-c] <dice_rolls> <dice_max> <roll_modifier>"
-  echo "  dice -h"
-  echo
-  echo "Options:"
-  echo "  -h  Print this Help."
-  echo "  -c  Enable critical hits and fumbles [default: disabled]."
+	# Display Help
+	echo "Dice Roller"
+	echo "Generates a given number of random values between 1 and a given maximum."
+	echo
+	echo "Usage:"
+	echo "  dice [-c] [<dice_rolls>] [<dice_max>] [<roll_modifier>]"
+	echo "  dice [-c]"
+	echo "  dice [-c] <dice_rolls>"
+	echo "  dice [-c] <dice_rolls> <dice_max>"
+	echo "  dice [-c] <dice_rolls> <dice_max> <roll_modifier>"
+	echo "  dice -h"
+	echo
+	echo "Options:"
+	echo "  -h  Print this Help."
+	echo "  -c  Enable critical hits and fumbles [default: disabled]."
 }
 
 ################################################################################
@@ -201,31 +201,31 @@ Help() {
 ################################################################################
 # Get the options
 while getopts ":hcrdm" option; do
-  case $option in
-  h) # display Help
-    Help
-    exit
-    ;;
-  c) # enable critical rolls
-    ROLL_CRITICAL="true"
-    shift # drop the option from the parameter list
-    ;;
-  \?) # incorrect option
-    echo "Error: Invalid option"
-    exit
-    ;;
-  esac
+	case $option in
+	h) # display Help
+		Help
+		exit
+		;;
+	c) # enable critical rolls
+		ROLL_CRITICAL="true"
+		shift # drop the option from the parameter list
+		;;
+	\?) # incorrect option
+		echo "Error: Invalid option"
+		exit
+		;;
+	esac
 done
 
 if [ "$#" -ge 1 ]; then
-  set_rolls $1 # if one option is given, set the number of dice to roll
+	set_rolls $1 # if one option is given, set the number of dice to roll
 fi
 if [ "$#" -ge 2 ]; then
-  set_max $2 # if two options are given, set the type of dice to roll
+	set_max $2 # if two options are given, set the type of dice to roll
 fi
 if [ "$#" -ge 3 ]; then
-  set_modifier $3 # if three options are given, set the modifier for the next roll
+	set_modifier $3 # if three options are given, set the modifier for the next roll
 fi
 if [ "$#" -ge 0 ]; then
-  roll_dice # if no options are given, roll the dice
+	roll_dice # if no options are given, roll the dice
 fi
